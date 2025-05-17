@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Plano de Voo SimBrief</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Plano de Voo SimBrief</h1>
+
+    <div class="main-container">
+        <form method="POST">
+            <label for="pilot_id">ID do Piloto:</label><br>
+            <input type="text" name="pilot_id" placeholder="Ex: 542224" required>
+            <button type="submit">Buscar</button>
+        </form>
+
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+
+        {% if flight_plan %}
+            <div class="flight-info">
+                <h3>Plano de Voo</h3>
+                <p><strong>Voo:</strong> {{ flight_plan.flight_number }}</p>
+                <p><strong>Aeronave:</strong> {{ flight_plan.aircraft_code }} - {{ flight_plan.aircraft_name }}</p>
+                <p><strong>Passageiros:</strong> {{ flight_plan.passenger_count }}</p>
+                <p><strong>Origem:</strong> {{ flight_plan.departure }}</p>
+                <p><strong>Destino:</strong> {{ flight_plan.arrival }}</p>
+                <p><strong>Rota:</strong> {{ flight_plan.route }}</p>
+                <p><strong>METAR Origem:</strong> {{ flight_plan.metar_departure }}</p>
+                <p><strong>METAR Destino:</strong> {{ flight_plan.metar_arrival }}</p>
+                <p><strong>Nível de voo:</strong> FL{{ flight_plan.flight_level }}</p>
+            </div>
+
+            <div class="weights">
+                <h4>Pesos e Cargas (KG)</h4>
+                <ul>
+                    <li><strong>Combustível (Block Fuel):</strong> {{ flight_plan.fuel }}</li>
+                    <li><strong>Burn Enroute:</strong> {{ flight_plan.enroute_burn }}</li>
+                    <li><strong>Payload:</strong> {{ flight_plan.payload }}</li>
+                    <li><strong>Carga:</strong> {{ flight_plan.cargo }}</li>
+                    <li><strong>Peso Vazio:</strong> {{ flight_plan.empty_weight }}</li>
+                    <li><strong>ZFW Estimado:</strong> {{ flight_plan.estimated_zfw }}</li>
+                    <li><strong>TOW Estimado:</strong> {{ flight_plan.estimated_tow }}</li>
+                    <li><strong>LW Estimado:</strong> {{ flight_plan.estimated_lw }}</li>
+                    <li><strong>Máx ZFW:</strong> {{ flight_plan.max_zfw }}</li>
+                    <li><strong>Máx TOW:</strong> {{ flight_plan.max_tow }}</li>
+                    <li><strong>Máx LW:</strong> {{ flight_plan.max_lw }}</li>
+                    <li><strong>Cruise profile:</strong> {{ cruise_profile }}</li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
