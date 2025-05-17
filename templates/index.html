@@ -5,6 +5,18 @@
     <title>Plano de Voo SimBrief</title>
      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+<button id="apoieBtn">Apoie o Projeto</button>
+
+<!-- Modal -->
+<div id="apoieModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Ajude este projeto!</h2>
+        <p>Se você gostou deste projeto, considere apoiar com um café ☕ ou compartilhar com amigos! 😄</p>
+        <!-- Aqui você pode colocar um QR Code, link do Pix ou botão do PayPal -->
+    </div>
+</div>
+
 <body>
     <h1>Plano de Voo SimBrief</h1>
 
@@ -52,7 +64,24 @@
             </div>
         {% endif %}
     </div>
-    
+   
+    <script>
+document.getElementById('apoieBtn').onclick = function() {
+    document.getElementById('apoieModal').style.display = 'block';
+};
+
+document.querySelector('.close').onclick = function() {
+    document.getElementById('apoieModal').style.display = 'none';
+};
+
+window.onclick = function(event) {
+    const modal = document.getElementById('apoieModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+};
+</script>
+
 
 </body>
 <footer>
