@@ -21,7 +21,7 @@ def index():
 
                 # ✅ Print do JSON completo no terminal
                 
-                print(json.dumps(data, indent=4))
+               
                 
                 
 

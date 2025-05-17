@@ -86,3 +86,9 @@ button:hover {
     text-align: left;
     color: #ffffff;
 }
+
+#footer_copyright {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ffffff;
+}
