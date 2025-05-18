@@ -40,7 +40,7 @@ def index():
                         "arrival": destination.get("icao_code", "N/A"),
                         "route": general.get("route", "N/A"),
                         "flight_level": general.get("initial_altitude", "N/A"),
-                        "nBLOCK FUEL": weights.get("nBLOCK FUEL", "N/A"),
+                        "block_fuel": weights.get("nBLOCK FUEL", "N/A"),
                         "fuel_burn": general.get("enroute_burn", "N/A"),
                         "payload": weights.get("payload", "N/A"),
                         "cargo": weights.get("cargo", "N/A"),
@@ -49,21 +49,18 @@ def index():
                         "tow_est": weights.get("est_tow", "N/A"),
                         "lw_est": weights.get("est_lw", "N/A"),
                         "max_zfw": weights.get("max_zfw", "N/A"),
-                        "max_tow": weights.get("max_tow", "N/A"), 
+                        "max_tow": weights.get("max_tow", "N/A"),
                         "max_lw": weights.get("max_lw", "N/A"),
                         "metar_departure": origin.get("metar", "N/A"),
                         "metar_arrival": destination.get("metar", "N/A"),
-                        
-                        
-                       
-        
                     }
+                    
                 else:
                     error_message = "Erro ao processar os dados do plano de voo. Verifique se há um voo recente gerado."
             except Exception as e:
                 error_message = f"Erro ao acessar a API: {str(e)}"
 
-    return render_template("index.html", flight_plan=flight_plan, error_message=error_message)
+    return render_template("index.html", flight_plan=flight_plan, error_message=error_message) #se conecta com o html
 
 if __name__ == '__main__':
     app.run(debug=True)
