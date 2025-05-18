@@ -51,7 +51,7 @@ def index():
                         "aircraft": aircraft.get("icao_code", "N/A"),
                         "departure": origin.get("icao_code", "N/A"),
                         "arrival": destination.get("icao_code", "N/A"),
-                         "alternate_icao": data.get("text", {}).get("plan_html", "").split("SBPV")[0].split()[-1] if "SBPV" in data.get("text", {}).get("plan_html", "") else "N/A",
+                         "alternate_icao": data.get("text", {}).get("plan_html", "").split("SBPV")[0].split()[-1] if "SBPV" in data.get("text", {}).get("plan_html", "") else "N/A", #verificando, corrigir
                         "route": general.get("route", "N/A"),
                         "flight_level": general.get("initial_altitude", "N/A"),
                         "block_fuel": block_fuel,
