@@ -48,6 +48,7 @@
         <p><strong>Aeronave:</strong> {{ flight_plan.aircraft }}</p>
         <p><strong>Origem:</strong> {{ flight_plan.departure }}</p>
         <p><strong>Destino:</strong> {{ flight_plan.arrival }}</p>
+        <p><strong>Alternativo:</strong> {{ flight_plan.alternate_icao }}</p>
         <p><strong>Rota:</strong> {{ flight_plan.route }}</p>
         <p><strong>METAR Origem:</strong> {{ flight_plan.metar_departure }}</p>
         <p><strong>METAR Destino:</strong> {{ flight_plan.metar_arrival }}</p>
@@ -57,7 +58,7 @@
     <div class="weights">
         <h4>Pesos e Cargas (KG)</h4>
         <ul>
-            <li><strong>Combustível (Block Fuel):</strong> {{ flight_plan.block_fuel }}</li>
+            <li><strong>Block Fuel:</strong> {{ flight_plan.block_fuel }}</li>
             <li><strong>Burn Enroute:</strong> {{ flight_plan.fuel_burn }}</li>
             <li><strong>Payload:</strong> {{ flight_plan.payload }}</li>
             <li><strong>Carga:</strong> {{ flight_plan.cargo }}</li>
@@ -69,6 +70,7 @@
             <li><strong>Máx TOW:</strong> {{ flight_plan.max_tow }}</li>
             <li><strong>Máx LdW:</strong> {{ flight_plan.max_ldw }}</li>
             <li><strong>CI:</strong> {{ flight_plan.CI }}</li>    <!-- verificar -->
+            <li><strong>Pax:</strong> {{ flight_plan.pax }}</li>
         </ul>
     </div>
 {% endif %}
