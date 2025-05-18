@@ -42,6 +42,7 @@ def index():
                     # ✅ Imprima o conteúdo dos dicionários para depuração
                     print("Conteúdo do dicionário 'general':", general)
                     print("Conteúdo do dicionário 'weights':", weights)
+                    
 
                     flight_plan = {
                         "flight_number": general.get("flight_number", "N/A"),
@@ -61,7 +62,7 @@ def index():
                         "max_zfw": weights.get("max_zfw", "N/A"),
                         "max_tow": weights.get("max_tow", "N/A"),
                         "max_lw": weights.get("max_ldw", "N/A"),  # Chave CORRIGIDA para Máx LW
-                        "cost_index": weights.get("costindex", "N/A"),
+                        "CI": general.get("costindex", "N/A"),  # Adicionando o Cost Index
                         "metar_departure": origin.get("metar", "N/A"),
                         "metar_arrival": destination.get("metar", "N/A"),
                         
