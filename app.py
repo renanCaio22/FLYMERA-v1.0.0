@@ -24,9 +24,6 @@ def index():
                 # ✅ Print do JSON completo no terminal
                 
                
-                
-                
-
                 if data.get("fetch", {}).get("status") == "Success":
                     weights = data.get("weights", {})
                     general = data.get("general", {})

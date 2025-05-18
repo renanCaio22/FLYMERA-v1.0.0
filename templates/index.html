@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>Plano de Voo SimBrief</title>
      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v={{ random() }}">
+     <div class="menu">
+    <button class="menu-btn">Ferramentas ▼</button>
+    <div class="menu-content">
+        <a href="pesquisar_metar.html">Pesquisar METAR</a>
+        <a href="sobre.html">Sobre Nós</a>
+    </div>
+</div>
     <button id="apoieBtn">Apoie o Projeto</button>
 
 <!-- Modal -->
@@ -83,6 +90,13 @@ window.onclick = function(event) {
         modal.style.display = 'none';
     }
 };
+</script>
+
+<script>
+document.querySelector(".menu-btn").addEventListener("click", function() {
+    var menu = document.querySelector(".menu-content");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+});
 </script>
 
 
