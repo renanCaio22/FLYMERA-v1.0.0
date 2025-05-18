@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from random import random
 import requests
-import json  # para exibir o JSON formatado
+import json
+import re  # Importe a biblioteca de expressões regulares
 
 app = Flask(__name__)
 app.jinja_env.globals['random'] = random
@@ -18,20 +19,29 @@ def index():
             try:
                 response = requests.get(url)
                 data = response.json()
-                
-
 
                 # ✅ Print do JSON completo no terminal
-                
-               
+                print(json.dumps(data, indent=4))
+
                 if data.get("fetch", {}).get("status") == "Success":
                     weights = data.get("weights", {})
                     general = data.get("general", {})
                     aircraft = data.get("aircraft", {})
                     origin = data.get("origin", {})
                     destination = data.get("destination", {})
-            
-                
+                    text_data = data.get("text", {})
+                    plan_html = text_data.get("plan_html", "")
+
+                    # Use regex para encontrar a linha que contém "BLOCK FUEL" e extrair o valor
+                    block_fuel_match = re.search(r"BLOCK FUEL\s+\w+\s+(\d+)", plan_html)
+                    block_fuel = block_fuel_match.group(1) if block_fuel_match else "N/A"
+
+                    # ✅ Imprima o valor de block_fuel para depuração
+                    print(f"Valor de block_fuel extraído: {block_fuel}")
+
+                    # ✅ Imprima o conteúdo dos dicionários para depuração
+                    print("Conteúdo do dicionário 'general':", general)
+                    print("Conteúdo do dicionário 'weights':", weights)
 
                     flight_plan = {
                         "flight_number": general.get("flight_number", "N/A"),
@@ -40,21 +50,23 @@ def index():
                         "arrival": destination.get("icao_code", "N/A"),
                         "route": general.get("route", "N/A"),
                         "flight_level": general.get("initial_altitude", "N/A"),
-                        "block_fuel": weights.get("nBLOCK FUEL", "N/A"),
-                        "fuel_burn": general.get("enroute_burn", "N/A"),
+                        "block_fuel": block_fuel,
+                        "fuel_burn": general.get("total_burn", "N/A"),
                         "payload": weights.get("payload", "N/A"),
                         "cargo": weights.get("cargo", "N/A"),
-                        "empty_weight": weights.get("empty_weight", "N/A"),
+                        "empty_weight": weights.get("oew", "N/A"),
                         "zfw_est": weights.get("est_zfw", "N/A"),
                         "tow_est": weights.get("est_tow", "N/A"),
-                        "lw_est": weights.get("est_lw", "N/A"),
+                        "lw_est": weights.get("est_ldw", "N/A"),
                         "max_zfw": weights.get("max_zfw", "N/A"),
                         "max_tow": weights.get("max_tow", "N/A"),
-                        "max_lw": weights.get("max_lw", "N/A"),
+                        "max_lw": weights.get("max_ldw", "N/A"),  # Chave CORRIGIDA para Máx LW
+                        "cost_index": weights.get("costindex", "N/A"),
                         "metar_departure": origin.get("metar", "N/A"),
                         "metar_arrival": destination.get("metar", "N/A"),
+                        
                     }
-                    
+
                 else:
                     error_message = "Erro ao processar os dados do plano de voo. Verifique se há um voo recente gerado."
             except Exception as e:
