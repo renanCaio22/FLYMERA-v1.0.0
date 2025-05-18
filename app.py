@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request
+from random import random
 import requests
 import json  # para exibir o JSON formatado
 
 app = Flask(__name__)
+app.jinja_env.globals['random'] = random
 
 @app.route('/', methods=['GET', 'POST'])
 def index():

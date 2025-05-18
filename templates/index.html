@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Plano de Voo SimBrief</title>
-     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<button id="apoieBtn">Apoie o Projeto</button>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v={{ random() }}">
+    <button id="apoieBtn">Apoie o Projeto</button>
 
 <!-- Modal -->
 <div id="apoieModal" class="modal">
@@ -18,6 +17,10 @@
 </div>
 
 <body>
+    <div class="LogoL">
+      <img src="{{ url_for('static', filename='FLYMERA_logo.png') }}" alt="Logo" class="logo">
+    </div>
+  
     <h1>Plano de Voo SimBrief</h1>
 
     <div class="main-container">
