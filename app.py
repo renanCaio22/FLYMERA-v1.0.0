@@ -31,6 +31,7 @@ def index():
                     destination = data.get("destination", {})
                     text_data = data.get("text", {})
                     plan_html = text_data.get("plan_html", "")
+                    alternate_data = {} # <-- Correção: inicialize aqui
 
                     # Use regex para encontrar a linha que contém "ALTN" seguido pelo código do aeroporto
                     altn_match = re.search(r"ALTN\s+([A-Z]{4})", plan_html)
@@ -45,10 +46,17 @@ def index():
                     print(f"Valor de block_fuel extraído: {block_fuel}")
                     print("Conteúdo do dicionário 'general':", general)
                     print("Conteúdo do dicionário 'weights':", weights)
+                    print(f"Valor de plan_html: {data.get('text', {}).get('plan_html', '')}")
+                    print(f"Pista do alternado: {alternate_data.get('plan_rwy', 'N/A')}")
+
+                    
 
                     flight_plan = {
                         "flight_number": general.get("flight_number", "N/A"),
                         "aircraft": aircraft.get("icao_code", "N/A"),
+                        "plan_rwy": origin.get("plan_rwy", "N/A"),
+                        "plan_rwy_landing": destination.get("plan_rwy", "N/A"),
+                        "plan_rwy_alternate": alternate_data.get("plan_rwy", "N/A"),
                         "departure": origin.get("icao_code", "N/A"),
                         "arrival": destination.get("icao_code", "N/A"),
                         "alternate": alternate_airport,  # ✅ Adicionando o aeroporto alternativo

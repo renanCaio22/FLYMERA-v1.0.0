@@ -46,9 +46,10 @@
         <h3>Plano de Voo</h3>
         <p><strong>Voo:</strong> {{ flight_plan.flight_number }}</p>
         <p><strong>Aeronave:</strong> {{ flight_plan.aircraft }}</p>
-        <p><strong>Origem:</strong> {{ flight_plan.departure }}</p>
-        <p><strong>Destino:</strong> {{ flight_plan.arrival }}</p>
-        <p>Alternate: {{ flight_plan.alternate }}</p> <p>Route: {{ flight_plan.route }}</p>
+        <p><strong>Pista: {{ flight_plan.plan_rwy_alternate }} {# Adicionado aqui #}</strong></p> 
+        <p><strong>Origem:</strong> {{ flight_plan.departure }} &nbsp RWY {{ flight_plan.plan_rwy }}</p>
+        <p><strong>Destino:</strong> {{ flight_plan.arrival }}  &nbsp RWY {{ flight_plan.plan_rwy_landing }}</p>
+        <p><strong>Alternate:</strong> {{ flight_plan.alternate }}</p>
         <p><strong>Rota:</strong> {{ flight_plan.route }}</p>
         <p><strong>METAR Origem:</strong> {{ flight_plan.metar_departure }}</p>
         <p><strong>METAR Destino:</strong> {{ flight_plan.metar_arrival }}</p>
@@ -106,7 +107,7 @@ document.querySelector(".menu-btn").addEventListener("click", function() {
 </body>
 <footer>
     <div id="footer_copyright">
-        &#169; 2025 - Todos os direitos reservados. | Versão 1.1.1
+        &#169; 2025 - Todos os direitos reservados. | Versão 1.1.2
 
     </div>
    </footer>
