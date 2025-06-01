@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from random import random
 import requests
 import json
@@ -85,6 +85,36 @@ def index():
                 error_message = f"Erro ao acessar a API: {str(e)}"
 
     return render_template("index.html", flight_plan=flight_plan, error_message=error_message) #se conecta com o html
+
+# --- Novas rotas para as páginas de menu ---
+
+@app.route('/pesquisar_metar')
+def pesquisar_metar():
+    # Aqui você pode adicionar lógica específica para a página de pesquisa de METAR, se houver.
+    return render_template('pesquisar_metar.html')
+
+@app.route('/sobre')
+def sobre():
+    # Aqui você pode adicionar lógica específica para a página "Sobre Nós", se houver.
+    return render_template('sobre.html')
+
+@app.route('/airac')
+def airac_page():
+    # Esta rota simplesmente renderiza a página HTML para download do AIRAC
+    return render_template('airac.html')
+
+@app.route('/download_airac')
+def download_airac():
+    # Define o diretório onde os arquivos AIRAC estão localizados (dentro de 'static')
+    # Certifique-se de que o nome da pasta e do arquivo correspondem à sua estrutura real.
+    airac_directory = 'static/airac_files' # Exemplo: 'static/downloads'
+    airac_filename = 'airac_current_cycle.zip' # Exemplo: 'meu_airac_v1.0.zip'
+
+    return send_from_directory(
+        directory=airac_directory,  # <- Alinhado corretamente com 'send_from_directory('
+        path=airac_filename,
+        as_attachment=True
+    ) 
 
 if __name__ == '__main__':
     app.run(debug=True)
