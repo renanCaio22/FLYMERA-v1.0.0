@@ -228,6 +228,7 @@ header {
 
 .menu-content a:hover {
   background-color: var(--button-hover-bg);
+  transform: translateY(-1px);
 }
 
 .simbrief-form {
