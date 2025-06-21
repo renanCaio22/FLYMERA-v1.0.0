@@ -1,96 +1,341 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-        <meta charset="UTF-8">
-        <title>Plano de Voo SimBrief</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v={{ random() }}">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PSW PrecisionSimware - Plano de Voo SimBrief</title>
+    <link rel="stylesheet" href="static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">PSW PrecisionSimware</div>
+      <div class="search-bar">
+        <input type="text" placeholder="Procurar" />
+        <i class="fas fa-search"></i>
+      </div>
+      <div class="window-controls">
+        <button class="control-btn minimize">-</button>
+        <button class="control-btn maximize">⬜</button>
+        <button class="control-btn close">X</button>
+      </div>
+    </header>
 
-</head>
-<body>
-       <div id="horaUTC" style="font-weight: bold;"></div> <!-- hora Utc -->
-       <div id="horaLocal"></div> 
-        <div class="menu">
-             <button class="menu-btn" id="Teste">Ferramentas ▼</button>
-                <div class="menu-content">
-                    <a href="https://metar-taf.com/pt/SBFL" target="_blank">Pesquisar METAR</a>
-                    <a href="sobre.html">Sobre Nós</a>
-                    <a href="https://drive.google.com/drive/folders/1PPPbjm2mf9FGe9pxva13QZAa2xRklOsT?usp=drive_link" target="_blank">Airac</a>
-                </div>
+    <nav class="top-icon-bar">
+      <div class="nav-item active">
+        <i class="fas fa-plane-departure"></i>
+        <span>Plano de Voo</span>
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-map-marked-alt"></i>
+        <span>Navegação</span>
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-cog"></i>
+        <span>Configurações</span>
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-bell"></i>
+        <span>Notificações</span>
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-book"></i>
+        <span>Biblioteca</span>
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-globe"></i>
+        <span>Cenários</span>
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-puzzle-piece"></i>
+        <span>Addons</span>
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-chart-line"></i>
+        <span>Relatórios</span>
+      </div>
+      <div class="nav-item">
+        <i class="fas fa-comments"></i>
+        <span>Comunicações</span>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="left-panel">
+        <div class="panel-header">
+          <h2>Plano de Voo SimBrief</h2>
+          <div class="panel-buttons">
+            <div class="menu">
+              <button class="modal-trigger-btn menu-btn" id="menuFerramentas">
+                Ferramentas <i class="fas fa-caret-down"></i>
+              </button>
+              <div class="menu-content">
+                <a href="https://metar-taf.com/pt/SBFL" target="_blank"
+                  >Pesquisar METAR</a
+                >
+                <a href="sobre.html">Sobre Nós</a>
+                <a
+                  href="https://drive.google.com/drive/folders/1PPPbjm2mf9FGe9pxva13QZAa2xRklOsT?usp=drive_link"
+                  target="_blank"
+                  >AIRAC</a
+                >
+              </div>
+            </div>
+            <button class="modal-trigger-btn" id="openApoieModal">
+              Apoie o Projeto
+            </button>
+          </div>
         </div>
-         <button id="apoieBtn">Apoie o Projeto</button>
 
-<!-- Modal -->
-    <div id="apoieModal" class="modal">
+        <div class="content-section">
+          <form method="POST" class="simbrief-form">
+            <label for="pilot_id">SimBrief User ID:</label>
+            <input
+              type="text"
+              name="pilot_id"
+              placeholder="Ex: 542224"
+              required
+            />
+            <button type="submit" class="calculate-btn">Buscar Plano</button>
+          </form>
+
+          {% if error_message %}
+          <p class="error-message">{{ error_message }}</p>
+          {% endif %} {% if flight_plan %}
+          <div class="flight-info-group">
+            <div class="flight-info">
+              <h3>Detalhes do Voo</h3>
+              <p><strong>Voo:</strong> {{ flight_plan.flight_number }}</p>
+              <p><strong>Aeronave:</strong> {{ flight_plan.aircraft }}</p>
+              <p>
+                <strong>Pista de Alternativa:</strong> {{
+                flight_plan.plan_rwy_alternate }}
+              </p>
+              <p>
+                <strong>Origem:</strong> {{ flight_plan.departure }} &nbsp; RWY
+                {{ flight_plan.plan_rwy }}
+              </p>
+              <p>
+                <strong>Destino:</strong> {{ flight_plan.arrival }} &nbsp; RWY
+                {{ flight_plan.plan_rwy_landing }}
+              </p>
+              <p><strong>Alternativa:</strong> {{ flight_plan.alternate }}</p>
+              <p><strong>Rota:</strong> {{ flight_plan.route }}</p>
+              <p>
+                <strong>METAR Origem:</strong> {{ flight_plan.metar_departure }}
+              </p>
+              <p>
+                <strong>METAR Destino:</strong> {{ flight_plan.metar_arrival }}
+              </p>
+              <p>
+                <strong>Nível de Voo:</strong> FL{{ flight_plan.flight_level }}
+              </p>
+            </div>
+
+            <div class="weights">
+              <h4>Pesos e Cargas (KG)</h4>
+              <ul>
+                <li>
+                  <strong>Block Fuel:</strong> {{ flight_plan.block_fuel }}
+                </li>
+                <li>
+                  <strong>Burn Enroute:</strong> {{ flight_plan.fuel_burn }}
+                </li>
+                <li><strong>Payload:</strong> {{ flight_plan.payload }}</li>
+                <li><strong>Carga:</strong> {{ flight_plan.cargo }}</li>
+                <li>
+                  <strong>Peso Vazio:</strong> {{ flight_plan.empty_weight }}
+                </li>
+                <li>
+                  <strong>ZFW Estimado:</strong> {{ flight_plan.zfw_est }}
+                </li>
+                <li>
+                  <strong>TOW Estimado:</strong> {{ flight_plan.tow_est }}
+                </li>
+                <li><strong>LW Estimado:</strong> {{ flight_plan.lw_est }}</li>
+                <li><strong>Máx ZFW:</strong> {{ flight_plan.max_zfw }}</li>
+                <li><strong>Máx TOW:</strong> {{ flight_plan.max_tow }}</li>
+                <li><strong>Máx LdW:</strong> {{ flight_plan.max_ldw }}</li>
+                <li><strong>CI:</strong> {{ flight_plan.CI }}</li>
+                <li><strong>Pax:</strong> {{ flight_plan.pax }}</li>
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="panel-footer">
+          <input type="text" value="ID do Piloto: Exemplo" readonly />
+          <button class="exit-btn">
+            Sair <i class="fas fa-caret-down"></i>
+          </button>
+        </div>
+      </section>
+
+      <aside class="right-panel">
+        <h3>Horários e Status</h3>
+        <div class="status-info">
+          <p><strong id="horaUTC">--:-- UTC</strong></p>
+          <p><strong id="horaLocal">--:-- Local</strong></p>
+          <p>Última Atualização: <span id="lastUpdated">Carregando...</span></p>
+        </div>
+        <h3>Mapa da Área</h3>
+        <div id="map-container">
+          <p>Mapa interativo do plano de voo.</p>
+        </div>
+      </aside>
+    </main>
+
+    <div id="apoieModal" class="modal-overlay">
+      <div class="custom-modal">
+        <div class="modal-header">
+          <h3>Ajude este projeto!</h3>
+          <button class="modal-close-btn" id="closeApoieModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Ajude este projeto!</h2>
-            <p>Se você gostou deste projeto, considere apoiar com um café ☕ ou compartilhar com amigos! 😄</p>
-            <!-- Aqui você pode colocar um QR Code, link do Pix ou botão do PayPal -->
+          <p>
+            Se você gostou deste projeto, considere apoiar com um café ☕ ou
+            compartilhar com amigos! 😄
+          </p>
+          <div style="margin-top: 20px; text-align: center">
+            <p>Chave Pix: **XXXXXXXXXXXXXXX**</p>
+            <p>Ou escaneie o QR Code:</p>
+          </div>
         </div>
-    </div>
-    <div class="LogoL">
-      <img src="{{ url_for('static', filename='FLYMERA_logo.png') }}" alt="Logo" class="logo">
-    </div>
-  
-    <h1>Plano de Voo SimBrief</h1>
-
-    <div class="main-container">
-        <form method="POST">
-            <label for="pilot_id">SimBrief User ID:</label><br>
-            <input type="text" name="pilot_id" placeholder="Ex: 542224" required>
-            <button type="submit">Buscar</button>
-        </form>
-
-        {% if error_message %}
-            <p class="error-message">{{ error_message }}</p>
-        {% endif %}
-
-        {% if flight_plan %}
-    <div class="flight-info">
-        <h3>Plano de Voo</h3>
-        <p><strong>Voo:</strong> {{ flight_plan.flight_number }}</p>
-        <p><strong>Aeronave:</strong> {{ flight_plan.aircraft }}</p>
-        <p><strong>Pista: {{ flight_plan.plan_rwy_alternate }} {# Adicionado aqui #}</strong></p> 
-        <p><strong>Origem:</strong> {{ flight_plan.departure }} &nbsp RWY {{ flight_plan.plan_rwy }}</p>
-        <p><strong>Destino:</strong> {{ flight_plan.arrival }}  &nbsp RWY {{ flight_plan.plan_rwy_landing }}</p>
-        <p><strong>Alternate:</strong> {{ flight_plan.alternate }}</p>
-        <p><strong>Rota:</strong> {{ flight_plan.route }}</p>
-        <p><strong>METAR Origem:</strong> {{ flight_plan.metar_departure }}</p>
-        <p><strong>METAR Destino:</strong> {{ flight_plan.metar_arrival }}</p>
-        <p><strong>Nível de voo:</strong> FL{{ flight_plan.flight_level }}</p>
+      </div>
     </div>
 
-    <div class="weights">
-        <h4>Pesos e Cargas (KG)</h4>
-        <ul>
-            <li><strong>Block Fuel:</strong> {{ flight_plan.block_fuel }}</li>
-            <li><strong>Burn Enroute:</strong> {{ flight_plan.fuel_burn }}</li>
-            <li><strong>Payload:</strong> {{ flight_plan.payload }}</li>
-            <li><strong>Carga:</strong> {{ flight_plan.cargo }}</li>
-            <li><strong>Peso Vazio:</strong> {{ flight_plan.empty_weight }}</li>
-            <li><strong>ZFW Estimado:</strong> {{ flight_plan.zfw_est }}</li>
-            <li><strong>TOW Estimado:</strong> {{ flight_plan.tow_est }}</li>
-            <li><strong>LW Estimado:</strong> {{ flight_plan.lw_est }}</li>
-            <li><strong>Máx ZFW:</strong> {{ flight_plan.max_zfw }}</li>
-            <li><strong>Máx TOW:</strong> {{ flight_plan.max_tow }}</li>
-            <li><strong>Máx LdW:</strong> {{ flight_plan.max_ldw }}</li>
-            <li><strong>CI:</strong> {{ flight_plan.CI }}</li>    <!-- verificar -->
-            <li><strong>Pax:</strong> {{ flight_plan.pax }}</li>
-        </ul>
+    <div class="modal-overlay" id="performance-modal-overlay">
+      <div class="performance-modal custom-modal">
+        <div class="modal-header">
+          <h3>Cálculo de Performance</h3>
+          <button class="modal-close-btn" id="close-performance-modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="aircraft-selection">
+          <button class="aircraft-btn active" data-aircraft="737">
+            Boeing 737
+          </button>
+          <button class="aircraft-btn" data-aircraft="a320">Airbus A320</button>
+          <button class="aircraft-btn" data-aircraft="lear35a">
+            Learjet 35A
+          </button>
+          <button class="aircraft-btn" data-aircraft="phenom300">
+            Phenom 300
+          </button>
+        </div>
+
+        <div class="performance-inputs">
+          <label for="peso">Peso (kg):</label>
+          <input type="number" id="peso" value="60000" />
+
+          <label for="altitude">Altitude (ft):</label>
+          <input type="number" id="altitude" value="10000" />
+
+          <label for="temperatura">Temperatura (°C):</label>
+          <input type="number" id="temperatura" value="15" />
+
+          <label for="vento">Vento (kt):</label>
+          <input type="number" id="vento" value="0" />
+        </div>
+
+        <button class="calculate-btn" id="calculate-performance">
+          Calcular Performance
+        </button>
+
+        <div class="performance-results" id="performance-results">
+          <p>
+            Selecione uma aeronave e insira os dados para calcular a
+            performance.
+          </p>
+        </div>
+      </div>
     </div>
-    {% endif %}
 
-   <script src="static/script.js"></script>
+    <script>
+      // Script para o modal "Apoie o Projeto"
+      const apoieBtn = document.getElementById("openApoieModal");
+      const apoieModal = document.getElementById("apoieModal");
+      const closeApoieModal = document.getElementById("closeApoieModal");
 
-</body>
-<footer>
-    <div id="footer_copyright">
-        &#169; 2025 - Todos os direitos reservados. | Versão 1.1.2
+      apoieBtn.addEventListener("click", () => {
+        apoieModal.classList.add("active");
+      });
 
-    </div>
-   </footer>
+      closeApoieModal.addEventListener("click", () => {
+        apoieModal.classList.remove("active");
+      });
 
+      apoieModal.addEventListener("click", (e) => {
+        if (e.target === apoieModal) {
+          apoieModal.classList.remove("active");
+        }
+      });
+
+      // Script para o menu "Ferramentas"
+      const menuFerramentasBtn = document.getElementById("menuFerramentas");
+      const menuContent = menuFerramentasBtn.nextElementSibling; // Pega o div.menu-content
+      let menuTimeout;
+
+      menuFerramentasBtn.addEventListener("mouseover", () => {
+        clearTimeout(menuTimeout);
+        menuContent.style.display = "block";
+      });
+
+      menuFerramentasBtn.addEventListener("mouseout", () => {
+        menuTimeout = setTimeout(() => {
+          menuContent.style.display = "none";
+        }, 300); // Pequeno atraso para permitir mover o mouse para o conteúdo
+      });
+
+      menuContent.addEventListener("mouseover", () => {
+        clearTimeout(menuTimeout);
+      });
+
+      menuContent.addEventListener("mouseout", () => {
+        menuTimeout = setTimeout(() => {
+          menuContent.style.display = "none";
+        }, 300);
+      });
+
+      // Atualização de hora UTC e Local
+      function updateClocks() {
+        const now = new Date();
+        const utcHours = now.getUTCHours().toString().padStart(2, "0");
+        const utcMinutes = now.getUTCMinutes().toString().padStart(2, "0");
+        document.getElementById(
+          "horaUTC"
+        ).innerText = `${utcHours}:${utcMinutes} UTC`;
+
+        const localHours = now.getHours().toString().padStart(2, "0");
+        const localMinutes = now.getMinutes().toString().padStart(2, "0");
+        document.getElementById(
+          "horaLocal"
+        ).innerText = `${localHours}:${localMinutes} Local`;
+        document.getElementById("lastUpdated").innerText =
+          now.toLocaleTimeString("pt-BR");
+      }
+
+      updateClocks();
+      setInterval(updateClocks, 60000); // Atualiza a cada minuto
+    </script>
+    <script src="static/script.js"></script>
+  </body>
 </html>

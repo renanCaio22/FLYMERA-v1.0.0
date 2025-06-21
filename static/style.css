@@ -1,223 +1,665 @@
+/* Importação de fontes (ex: Google Fonts para um visual futurista) */
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+
+:root {
+  --bg-dark: #1a1a2e; /* Fundo principal */
+  --panel-bg: #2a2a4a; /* Fundo dos painéis */
+  --header-bg: #16162b; /* Fundo do cabeçalho */
+  --border-color: #3b3b6b; /* Cor da borda sutil */
+  --text-light: #e0e0e0; /* Texto claro */
+  --text-dim: #a0a0c0; /* Texto mais apagado */
+  --accent-blue: #00bcd4; /* Azul vibrante para detalhes */
+  --button-hover-bg: #4a4a7a; /* Cor de hover para botões */
+  --input-bg: #3c3c6c; /* Fundo do campo de input */
+  --success-color: #28a745; /* Verde para sucesso/apoio */
+  --error-color: #ff4d4d; /* Vermelho para erros */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #0b1b2b;
-  text-align: center;
-  padding: 20px;
+  font-family: "Montserrat", sans-serif; /* Fonte principal */
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* Evita barras de rolagem indesejadas */
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
-  height: 170px;
+  font-family: "Orbitron", sans-serif; /* Fonte mais impactante para o logo */
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
-h1 {
-  color: #ffffff;
-}
-
-form {
-  background: #1a2e3d;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  display: inline-block;
-  margin-bottom: 20px;
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: var(--input-bg);
+  border-radius: 5px;
+  padding: 5px 10px;
   width: 300px;
 }
 
-input {
-  padding: 10px;
-  margin: 10px 0;
-  width: 250px;
-  border: 1px solid #1a2e3d;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 16px;
-}
-
-button {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
+.search-bar input {
+  background: none;
   border: none;
+  color: var(--text-light);
+  outline: none;
+  width: 100%;
+  padding-right: 10px;
+}
+
+.search-bar input::placeholder {
+  color: var(--text-dim);
+}
+
+.search-bar i {
+  color: var(--text-dim);
+}
+
+.window-controls button {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 18px;
+  margin-left: 10px;
   cursor: pointer;
-  border-radius: 4px;
-  font-size: 16px;
+  padding: 5px 8px;
+  border-radius: 3px;
+  transition: background-color 0.2s;
 }
 
-button:hover {
-  background-color: #00adb5;
+.window-controls button:hover {
+  background-color: var(--button-hover-bg);
 }
 
-.error-message {
-  color: red;
-  font-weight: bold;
-  margin-top: 10px;
+.window-controls .close:hover {
+  background-color: #ff4d4d; /* Cor de destaque para fechar */
 }
 
-.flight-info {
-  background: #1a2e3d;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  display: inline-block;
-  text-align: left;
-  max-width: 500px;
-  margin: auto;
+/* Top Icon Bar */
+.top-icon-bar {
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--panel-bg);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.flight-info p {
-  font-size: 16px;
-  margin: auto;
-}
-
-.main-container {
-  justify-content: flex-start; /* Alinha os elementos mais para cima */
+.nav-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: top;
-  min-height: 100vh;
-  gap: 20px;
-  color: #ffffff;
-}
-
-.weights {
-  background: #1a2e3d;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  margin-top: 10px;
-  text-align: left;
-  color: #ffffff;
-}
-
-#footer_copyright {
-  margin-top: 20px;
+  color: var(--text-dim);
   font-size: 14px;
-  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s, transform 0.2s;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 20;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+.nav-item i {
+  font-size: 22px;
+  margin-bottom: 5px;
+  color: var(--accent-blue); /* Ícones em azul */
 }
 
-.modal-content {
-  background-color: white;
-  margin: 15% auto;
+.nav-item.active {
+  color: var(--text-light);
+  background-color: var(--button-hover-bg);
+  border-bottom: 2px solid var(--accent-blue);
+}
+
+.nav-item:hover:not(.active) {
+  color: var(--text-light);
+  background-color: var(--button-hover-bg);
+  transform: translateY(-3px);
+}
+
+/* Main Content Area */
+.main-content {
+  display: flex;
+  flex-grow: 1;
+  padding: 15px;
+  gap: 15px;
+  overflow: hidden; /* Para garantir que os painéis internos não criem overflow */
+}
+
+.left-panel {
+  flex: 2; /* Ocupa mais espaço para o formulário e dados do plano de voo */
+  background-color: var(--panel-bg);
+  border-radius: 8px;
   padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 400px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto; /* Adiciona scroll se o conteúdo for muito grande */
+  border: 1px solid var(--border-color);
 }
 
-.close {
-  color: #aaa;
-  float: right;
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.panel-header h2 {
+  font-family: "Orbitron", sans-serif;
   font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
+  color: var(--accent-blue);
 }
 
-#apoieBtn {
-  position: absolute;
-  top: 20px; /* Ajuste conforme necessário */
-  right: 20px;
-  background-color: #28a745;
-  color: white;
-  padding: 10px 20px;
+.panel-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-trigger-btn {
+  background-color: var(
+    --success-color
+  ); /* Usando a cor de sucesso para o botão "Apoie" e "Ferramentas" */
+  color: var(--text-light);
   border: none;
-  border-radius: 8px;
+  padding: 8px 15px;
+  border-radius: 5px;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  display: flex; /* Para alinhar o ícone de seta */
+  align-items: center;
+  gap: 5px;
 }
 
-#horaUTC {
-  right: 20px;
-  color: #28a745;
+.modal-trigger-btn:hover {
+  background-color: #00adb5; /* Tom de hover do seu CSS original */
 }
 
-#horaLocal {
-  right: 20px;
-  color: #28a745;
-}
-
+/* Estilo para o menu suspenso de ferramentas */
 .menu {
-  position: absolute;
-  right: 200px; /* Ajuste para posicionar ao lado do botão */
-  top: 20px;
-}
-
-.menu-btn {
-  background-color: #28a745;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-#Teste :hover {
-  background-color: #00adb5;
+  position: relative;
+  display: inline-block;
 }
 
 .menu-content {
   display: none;
   position: absolute;
-  background-color: #1a2e3d;
-  min-width: 160px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--input-bg);
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  border-radius: 5px;
+  overflow: hidden;
+  left: 0; /* Alinha o menu com o botão */
+  top: 100%; /* Abaixo do botão */
+  margin-top: 5px; /* Espaçamento entre o botão e o menu */
+  border: 1px solid var(--border-color);
 }
 
 .menu-content a {
-  color: white;
-  padding: 10px;
-  display: block;
+  color: var(--text-light);
+  padding: 12px 16px;
   text-decoration: none;
+  display: block;
+  transition: background-color 0.2s;
 }
 
 .menu-content a:hover {
-  background-color: #00adb5;
+  background-color: var(--button-hover-bg);
 }
 
-.menu-btn a:hover {
-  background-color: #00adb5;
+.simbrief-form {
+  background: var(--input-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
 }
 
-.flight-info {
-  font-family: "Nunito Sans", sans-serif;
+.simbrief-form label {
+  font-size: 16px;
+  color: var(--text-light);
 }
 
-.weights {
-  font-family: "Nunito Sans", sans-serif;
-}
-
-.flight-info h3 {
+.simbrief-form input[type="text"] {
+  padding: 12px;
+  width: 100%;
+  max-width: 280px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
   text-align: center;
-  margin-top: 5px;
+  font-size: 16px;
+  background-color: var(--header-bg);
+  color: var(--text-light);
+  outline: none;
 }
 
+.simbrief-form input[type="text"]::placeholder {
+  color: var(--text-dim);
+}
+
+.calculate-btn {
+  padding: 10px 20px;
+  background-color: var(--accent-blue);
+  color: var(--header-bg);
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.calculate-btn:hover {
+  background-color: #0097a7;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.flight-info-group {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os blocos se quebrem em telas menores */
+  gap: 20px;
+  justify-content: center;
+}
+
+.flight-info,
+.weights {
+  background: var(--input-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  flex: 1; /* Permite que ocupem espaço igualmente */
+  min-width: 300px; /* Largura mínima para evitar que fiquem muito estreitos */
+  border: 1px solid var(--border-color);
+}
+
+.flight-info h3,
 .weights h4 {
   text-align: center;
-  margin-top: 5px;
+  margin-bottom: 15px;
+  font-family: "Nunito Sans", sans-serif;
+  color: var(--accent-blue);
+  font-size: 20px;
 }
 
+.flight-info p,
+.weights ul {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.flight-info strong,
 .weights strong {
-  color: #00adb5;
-  font-size: medium;
+  color: var(--accent-blue); /* Cor exclusiva para destaque */
+  font-size: 15px;
+  margin-right: 5px;
 }
 
-.flight-info strong {
-  color: #00adb5; /* Cor exclusiva para esse texto */
-  font-size: medium;
+.weights ul {
+  list-style: none; /* Remove marcadores de lista */
+  padding: 0;
+}
+
+.weights li {
+  margin-bottom: 5px;
+}
+
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-color);
+}
+
+.panel-footer input[type="text"] {
+  background-color: var(--header-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+  padding: 8px 12px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 14px;
+  width: 200px;
+}
+
+.exit-btn {
+  background-color: #4d4d7a; /* Um tom de roxo/cinza */
+  color: var(--text-light);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.exit-btn:hover {
+  background-color: #6a6a9a;
+}
+
+/* Right Panel (Map and Clocks) */
+.right-panel {
+  flex: 1; /* Ocupa menos espaço que o painel esquerdo */
+  background-color: var(--panel-bg);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  gap: 20px;
+}
+
+.right-panel h3 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 22px;
+  color: var(--accent-blue);
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.status-info {
+  text-align: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--input-bg);
+}
+
+.status-info p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.status-info strong {
+  color: var(--success-color); /* Cores para as horas */
+  font-weight: bold;
+}
+
+#map-container {
+  flex-grow: 1;
+  background-color: #3d3d6b; /* Cor placeholder para o mapa */
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 18px;
+  border: 1px dashed var(--border-color);
+}
+
+/* Estilos para o Modal (Reutilizando as classes do exemplo) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.custom-modal {
+  background-color: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 24px;
+  color: var(--accent-blue);
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.modal-close-btn:hover {
+  color: var(--text-light);
+}
+
+.modal-content {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-light);
+  text-align: center; /* Centraliza o conteúdo do modal Apoie */
+}
+
+.action-btn {
+  background-color: var(--accent-blue);
+  color: var(--header-bg);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background-color 0.2s;
+  margin: 0 5px;
+}
+
+.action-btn:hover {
+  background-color: #0097a7;
+}
+
+.action-btn.secondary {
+  background-color: #4d4d7a;
+  color: var(--text-light);
+}
+
+.action-btn.secondary:hover {
+  background-color: #6a6a9a;
+}
+
+/* Estilos específicos para o Modal de Performance */
+.performance-modal {
+  /* Adicione estilos específicos se necessário, mas herda de custom-modal */
+}
+
+.aircraft-selection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.aircraft-btn {
+  background-color: var(--input-bg);
+  color: var(--text-dim);
+  border: 1px solid var(--border-color);
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.aircraft-btn.active,
+.aircraft-btn:hover {
+  background-color: var(--accent-blue);
+  color: var(--header-bg);
+  border-color: var(--accent-blue);
+}
+
+.performance-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.performance-inputs label {
+  text-align: right;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.performance-inputs input {
+  background-color: var(--header-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+  padding: 8px 12px;
+  border-radius: 5px;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+}
+
+.performance-results {
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 15px;
+  text-align: center;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+}
+
+/* Footer - Removido do layout principal para seguir o exemplo, mas mantido para referência */
+/* #footer_copyright {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+} */
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .main-content {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .left-panel,
+  .right-panel {
+    flex: none;
+    width: 100%;
+  }
+  .flight-info-group {
+    flex-direction: column; /* Pilha os blocos de info em telas menores */
+  }
+  .flight-info,
+  .weights {
+    min-width: unset; /* Remove o min-width para flexibilidade */
+  }
+  .custom-modal {
+    width: 95%;
+    padding: 20px;
+  }
+  .panel-header {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .panel-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .search-bar {
+    width: 100%;
+    order: 3;
+  }
+  .logo,
+  .window-controls {
+    flex-grow: 1;
+    text-align: center;
+  }
+  .top-icon-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .nav-item {
+    margin: 5px;
+    padding: 5px;
+  }
+  .performance-inputs {
+    grid-template-columns: 1fr; /* Coluna única para inputs em telas pequenas */
+  }
+  .performance-inputs label {
+    text-align: left; /* Alinha labels à esquerda */
+  }
 }
