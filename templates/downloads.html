@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PSW PrecisionSimware - Downloads</title>
+    <link rel="stylesheet" href="static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Estilos específicos para a página de downloads */
+      .download-page-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+        gap: 20px;
+        flex-grow: 1;
+        background-color: var(--bg-dark); /* Mantém o fundo escuro */
+        color: var(--text-light); /* Mantém o texto claro */
+        overflow-y: auto; /* Permite rolagem se a lista for longa */
+      }
+
+      .download-header {
+        font-family: "Orbitron", sans-serif;
+        font-size: 36px;
+        color: var(--accent-blue);
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .download-list {
+        background-color: var(--panel-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 25px;
+        width: 90%;
+        max-width: 800px;
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      }
+
+      .download-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px dashed var(--border-color);
+        font-size: 18px;
+        color: var(--text-light);
+      }
+
+      .download-item:last-child {
+        border-bottom: none; /* Remove a borda do último item */
+      }
+
+      .download-item a {
+        color: var(--accent-blue);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s;
+      }
+
+      .download-item a:hover {
+        color: #00e0e0;
+        text-decoration: underline;
+      }
+
+      .download-item span {
+        color: var(--text-dim);
+        font-size: 14px;
+      }
+
+      .back-button-container {
+        margin-top: 30px;
+        text-align: center;
+      }
+
+      .back-button {
+        background-color: #4d4d7a;
+        color: var(--text-light);
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 18px;
+        transition: background-color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .back-button:hover {
+        background-color: #6a6a9a;
+      }
+
+      /* Responsividade para a página de downloads */
+      @media (max-width: 768px) {
+        .download-header {
+          font-size: 28px;
+        }
+        .download-list {
+          padding: 15px;
+        }
+        .download-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 5px;
+          font-size: 16px;
+        }
+        .download-item span {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body style="display: flex; flex-direction: column; min-height: 100vh">
+    <div class="download-page-container">
+      <h1 class="download-header">Arquivos para Download - Addons</h1>
+
+      <div class="download-list">
+        <div class="download-item">
+          <a href="#" download>Addon_Cessna172_CustomPanel.zip</a>
+          <span>Tamanho: 150 MB | Versão: 2.1 | Data: 2025-06-15</span>
+        </div>
+        <div class="download-item">
+          <a href="#" download>LiveryPack_GlobalAirlines_v3.rar</a>
+          <span>Tamanho: 850 MB | Versão: 3.0 | Data: 2025-05-28</span>
+        </div>
+        <div class="download-item">
+          <a href="#" download>Scenery_RioDeJaneiro_MegaPack.exe</a>
+          <span>Tamanho: 2.3 GB | Versão: 1.0 | Data: 2025-06-01</span>
+        </div>
+        <div class="download-item">
+          <a href="#" download>FlightPlan_EuropeTour_2025.pdf</a>
+          <span>Tamanho: 2.5 MB | Versão: 1.0 | Data: 2025-06-10</span>
+        </div>
+        <div class="download-item">
+          <a href="#" download>ATC_VoicePack_EnglishEnhanced.zip</a>
+          <span>Tamanho: 300 MB | Versão: 1.2 | Data: 2025-04-20</span>
+        </div>
+      </div>
+
+      <div class="back-button-container">
+        <button class="back-button" onclick="window.location.href='/'">
+          <i class="fas fa-arrow-left"></i> Voltar para a Simulação
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

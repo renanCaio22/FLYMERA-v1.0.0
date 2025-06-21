@@ -104,6 +104,11 @@ def airac_page():
     return render_template('airac.html')
 
 @app.route('/download_airac')
+
+@app.route('/downloads')
+def downloads():
+    return render_template('downloads.html')
+
 def download_airac():
     # Define o diretório onde os arquivos AIRAC estão localizados (dentro de 'static')
     # Certifique-se de que o nome da pasta e do arquivo correspondem à sua estrutura real.
@@ -118,3 +123,5 @@ def download_airac():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+ 
